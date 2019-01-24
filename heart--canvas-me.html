@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>heart--canvas--me</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 默认宽高300*150 -->
+    <!-- style方式设置canvas宽高会在默认宽高的基础上进行拉伸，导致变形 -->
+    <canvas>您的浏览器不支持该效果!</canvas>
+</body>
+
+<script>
+    (function(win, doc) {
+        
+        let canvas = doc.querySelector('canvas');
+        canvas.width = win.innerWidth;
+        canvas.height = win.innerHeight;
+
+        let ctx = canvas.getContext('2d');
+        let Heart = function(ctx, x, y) {
+            this.x = x;
+            this.y = y;
+            function dotCoordinate() {
+                let dotArr = [];
+                for (let index = 0; index < array.length; index++) {
+                    const element = array[index];
+                    
+                }
+            };
+        }
+        let _proto = Heart.prototype;
+
+        win.Heart = Heart
+
+    })(window, document)
+
+    let heart = new Heart;
+    heart.rectAngle();
+</script>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="lecode.png" type="image/x-icon" />
+    <title>em...土星😂~~</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            -webkit-overflow-scrolling: touch;
+        }
+        body {
+            --SIZE: 200;
+            background: no-repeat url(7.jpg);
+            background-size: cover;
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        #heart {
+            position: relative;
+            margin: 130px auto;
+            width: calc(var(--SIZE) * 1px);
+            height: calc(var(--SIZE) * 1px);
+            transform: rotate(45deg);
+        }
+        #heart div {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            overflow: hidden;
+/*             background: #000; */
+        }
+        #heart .rectangle {
+            z-index: 3;
+            border-radius: 8px;
+        }
+        #heart .circle-left,
+        #heart .circle-top {
+            z-index: 2;
+            border-radius: 50%;
+        }
+        #heart .circle-left {
+            left: -50%;
+        }
+        #heart .circle-top {
+            top: -50%;
+        }
+        #heart i:nth-child(2n+1) {
+            animation: blink2 3s infinite ease-in;
+            -webkit-animation: blink2 3s infinite ease-in;
+        }
+        #heart i:nth-child(2n) {
+            animation: blink 3s infinite ease-in-out;
+            -webkit-animation: blink 3s infinite ease-in-out;
+        }
+        @keyframes blink {
+            0% {
+                transform: scale(.5);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(.5);
+                opacity: 1;
+            }
+        }
+        @keyframes blink2 {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        #circle {
+            position: fixed;
+            width: calc(var(--SIZE) * 1px);
+            height: calc(var(--SIZE) * 1px);
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        #circle i {
+            transition: transform 2s;
+            --webkit-transition: transform 2s;
+        }
+        .zxx {
+            width: 100%;
+            height: 100%;
+            float: left;
+            background: rgba(0,0,0,.6)
+        }
+    </style>
+</head>
+
+<body>
+    <div class='zxx'></div>
+    <div id="heart">
+        <div class="circle-left"></div>
+        <div class="circle-top"></div>
+        <div class="rectangle"></div>
+    </div>
+    <div id="circle"></div>
+<!--     <audio preload autoplay loop src="Amanda McBroom - 爱は花、君はその种子.mp3"></audio> -->
+</body>
+
+<script>
+const COLORS = ['#eb125f', '#6eff8a', '#6386ff', '#f9f383', '#7CB5EC', '#2B908F', '#9966cc'];
+/** 此处需要注意下：
+ *          COLORS数组后面的分号（' ; '）不能少，没有分号会导致前面的代码和后面的代码，连接到一起出现难以发现的异常
+*/
+
+(function(win, doc) {
+    function RenderBall(config) {
+        this.config = config
+        this.getOneRandom = function(value) {
+            return parseInt(Math.random() * value)
+        }
+    };
+    let _proto = RenderBall.prototype;
+
+    _proto.creatBall = function() {
+        let config = this.config
+        let ball = doc.createElement('i');
+
+        ball.style.top = this.getOneRandom(config.height) + 'px';
+        ball.style.left = this.getOneRandom(config.width) + 'px';
+
+        ball.style.width = config.size + 'px';
+        ball.style.height = config.size + 'px';
+        ball.style.borderRadius = '50%';
+
+        let len = COLORS.length;
+        ball.style.backgroundColor = COLORS[this.getOneRandom(len)];
+
+        return ball;
+    };
+
+    _proto.fillBall = function() {
+        let config = this.config
+        let num = config.count;
+
+        let fragment = doc.createDocumentFragment();
+        for (let index = 0; index < num; index++) {
+            let ball = this.creatBall()
+            ball.style.position = 'absolute';
+            fragment.appendChild(ball);
+        }
+        return fragment
+    };
+
+    // _proto.clearBall = function(el) {
+    //     let childs = el.getElementsByTagName('i')
+    //     setTimeout(function() {
+    //         // 删除子节点
+
+    //         // 1. 耿直的方法
+    //         /* 注：当删除索引为0的子节点后，原来索引为1的节点此时它的索引变成0了，而循环变量i已经变成了1
+    //             解决办法：从后往前删*/ 
+    //         // for(let i = childs.length - 1; i >= 0; i--){
+    //         //     el.removeChild(childs[i])
+    //         // }
+
+    //         // 2. 便捷方法	
+    //         while(el.firstChild) {
+    //             el.removeChild(el.firstChild)
+    //         }
+    //     }, 1000 )
+    // };
+
+    win.RenderBall = RenderBall;
+})(window, document);
+</script>
+<script>
+drawHeart(document);
+
+var timer = null 
+timer = setInterval(_ => {
+    clickBoom()
+}, 2000)
+
+// 向心形盒子里填充圆点
+function drawHeart(doc) {
+    let heartEl = doc.getElementById('heart');
+    let divArr = heartEl.children;
+    for (let index = 0; index < divArr.length; index++) {
+        const el = divArr[index];
+        let config = {
+            size: 6, 
+            count: 240, 
+            width: 200,
+            height: 200,
+        }
+        if(el.className == 'circle-left') {
+            config.width = config.width / 2 - 6;
+            config.count = config.count / 2;
+        }
+        if(el.className == 'circle-top') {
+            config.height = config.height / 2 - 6;
+            config.count = config.count / 2;
+        }
+        let renderBall = new RenderBall(config);
+        let fragment = renderBall.fillBall();
+        el.appendChild(fragment);
+    }
+}
+
+// 点击圆点扩散
+function clickBoom(e) {
+    let config = {
+        size: 2, 
+        count: 50, 
+        width: 200, 
+        height: 200, 
+    }
+
+    let circle = document.getElementById('circle');
+    while(circle.firstChild) {
+        circle.removeChild(circle.firstChild)
+    }
+    // 定位到点击位置
+    // circle.style.top = e.clientY - circle.offsetHeight / 2 + 'px';
+    // circle.style.left = e.clientX - circle.offsetWidth / 2 + 'px';
+
+    let renderBall = new RenderBall(config);
+    let width = document.body.clientWidth;
+    let height = document.body.clientHeight;
+    let left = renderBall.getOneRandom(width);
+    let top = renderBall.getOneRandom(height);
+    if(top > (height - 400)) {
+        top = renderBall.getOneRandom(height - 400);
+    }
+    if(left > (width - 300)) {
+        left = renderBall.getOneRandom(width - 300);
+    }
+    circle.style.top = top + 'px';
+    circle.style.left = left + 'px';
+    
+    let fragment = renderBall.fillBall();
+    for (let index = 0; index < config.count; index++) {
+        const ball = fragment.children[index];
+        ball.style.top = '50%';
+        ball.style.left = '50%';
+        let xAxis = renderBall.getOneRandom(300) + 'px'
+        let yAxis = renderBall.getOneRandom(300) + 'px'
+        if(Math.random() < .5) {
+            xAxis = -renderBall.getOneRandom(300) + 'px'
+        }
+        if(Math.random() < .5) {
+            yAxis = -renderBall.getOneRandom(300) + 'px'
+        }
+        setTimeout(_ => {
+            let transform = `translate3d(${xAxis}, ${yAxis}, 0px) scale(0)`;
+            ball.style.transform = transform;
+            ball.style.webkitTransform = transform;
+        }, 10)
+    }
+    circle.appendChild(fragment)
+}
+</script>
+</html>
